@@ -51,5 +51,6 @@ const loginUserSuccess = (dispatch, user) =>{
         payload: user
     });
 
-    Actions.employeeList();
+    Actions.replace('employeeList');
+    //Actions.employeeList()
 }
