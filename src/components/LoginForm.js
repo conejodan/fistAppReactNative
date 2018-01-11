@@ -6,6 +6,10 @@ import { emailChanged, passwordChange, loginUser } from '../actions';
 
 class LoginForm extends Component{
 
+    componentWillMount(){
+        console.log(">>>>>>>>>>>", this.props.user)
+    }
+
     onEmailChange(text){
         this.props.emailChanged(text);
     }
@@ -85,7 +89,8 @@ const mapStateToProps = state =>{
         email : state.auth.email,
         password : state.auth.password,
         error: state.auth.error,
-        loading: state.auth.loading
+        loading: state.auth.loading,
+        user: state.auth.user
     };
 }
 
