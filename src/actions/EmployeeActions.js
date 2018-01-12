@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import {EMPLOYEE_UPDATE, EMPLOYEE_CREATE, EMPLOYEE_FETCH_SUCCESS} from './types';
+import {EMPLOYEE_UPDATE, EMPLOYEE_CREATE, EMPLOYEE_FETCH_SUCCESS, EMPLOYEE_SAVE_SUCCESS} from './types';
 import {Actions} from 'react-native-router-flux';
 
 
@@ -21,8 +21,7 @@ export const employeeCreate = ({name, phone, shift}) => {
                 type: EMPLOYEE_CREATE
             });
             Actions.pop();
-        })
-        ;
+        });
     }  
 };
 
@@ -35,3 +34,18 @@ export const employeeFetch = () => {
         });
     };
 }
+
+export const employeeSave = ({name, phone, shift, uid}) => {
+    console.log(name, phone, shift);
+    const { currentUser} = firebase.auth();
+    return (dispatch)=>{
+        firebase.database().ref('/users/' + currentUser.uid + '/employees/'+ uid )
+        .set({name, phone, shift})
+        .then(()=> {
+            dispatch({
+                type: EMPLOYEE_SAVE_SUCCESS
+            });
+            Actions.pop();
+        });
+    }  
+};
